@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+
+@utility mycontainer {
+  
+    @apply container px-40 py-16 mx-auto ;
+  
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b; /* slate-800 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b; /* slate-500 on hover */
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #475569 #1e293b;
+}
