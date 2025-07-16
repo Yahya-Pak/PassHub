@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -60,9 +60,12 @@ const Manager = () => {
   };
 
   const editPassword = (id) => {
-    setform(passwordArray.filter((i) => i.id === id)[0]);
 
-    setpasswordArray(passwordArray.filter((item) => item.id !== id));
+    navigate(`edit-entry/${id}`)
+
+    // setform(passwordArray.filter((i) => i.id === id)[0]);
+
+    // setpasswordArray(passwordArray.filter((item) => item.id !== id));
   };
 
   return (
@@ -95,7 +98,7 @@ const Manager = () => {
         <div>
           <button
             className="flex justify-center items-center gap-2 bg-green-500 rounded-full px-8 py-2 w-fit
-           hover:bg-green-400 border border-green-700"
+           hover:bg-green-400 border border-green-700 cursor-pointer"
             onClick={()=> navigate("/add-new-entry")}
           >
             <lord-icon

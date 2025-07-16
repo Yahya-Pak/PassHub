@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -10,6 +10,16 @@ const ref = useRef();
       const [passwordArray, setpasswordArray] = useState([]);
 
         const passwordRef = useRef();
+         const navigate = useNavigate();
+
+          useEffect(() => {
+            let passwords = localStorage.getItem("passwords");
+        
+            if (passwords) {
+              setpasswordArray(JSON.parse(passwords));
+            }
+            
+          }, []);
 
 
     
@@ -35,7 +45,8 @@ const ref = useRef();
       JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
     );
 
-    
+    navigate("/");
+
     setform({ site: "", username: "", password: "" });
     toast("Password Saved!", {
       position: "bottom-right",
@@ -78,8 +89,8 @@ const ref = useRef();
             pauseOnHover
             theme="dark"
           />
-      <div className='mx-auto max-w-lg bg-purple-100 my-16 p-8 rounded-lg flex flex-col gap-4'>
-      <h1 className='font-bold text-2xl'>Add Your New Password</h1>
+      <div className='mx-auto max-w-lg bg-green-100 my-16 p-8 rounded-lg flex flex-col gap-4'>
+      <h1 className='font-bold text-center text-2xl'>Add Your New Password</h1>
       <div className='flex flex-col gap-5'>
 
 
@@ -93,7 +104,7 @@ const ref = useRef();
             name="site"
             id="site"
           />
-          <div className="flex flex-col md:flex-row w-full gap-8 justify-between">
+          <div className="flex flex-col w-full gap-8 justify-between">
             <input
               placeholder="Enter Username"
               value={form.username}
@@ -132,7 +143,7 @@ const ref = useRef();
 
           <button
             className="flex justify-center items-center gap-2 bg-green-500 rounded-full px-8 py-2 w-fit
-           hover:bg-green-400 border border-green-700"
+           hover:bg-green-400 border border-green-700 cursor-pointer"
             onClick={savePassword}
           >
             <lord-icon

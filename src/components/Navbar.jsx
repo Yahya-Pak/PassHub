@@ -23,7 +23,8 @@ const Navbar = () => {
             </li>
         </ul> */}
         <div>
-          <button className="flex gap-1 text-white bg-green-600 py-1 px-3 rounded-full justify-center items-center ring ring-white">
+          <a className="flex gap-1 cursor-pointer text-white bg-green-600 py-1 px-3 rounded-full justify-center items-center ring ring-white"
+          href='https://github.com/Yahya-Pak/PassHub' target='_blank'>
            <lord-icon className="invert"
               src="https://cdn.lordicon.com/ioihllwu.json"
               trigger="hover"   
@@ -31,7 +32,7 @@ const Navbar = () => {
             ></lord-icon> 
             <span className="font-bold">Github</span>
             
-          </button>
+          </a>
 
         </div>
       </div>
