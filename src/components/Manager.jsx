@@ -1,16 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { v4 as uuidv4 } from "uuid";
-import AddNewEntry from "./AddNewEntry";
 import { useNavigate } from "react-router-dom";
 
 
 const Manager = () => {
-  const ref = useRef();
-  const [form, setform] = useState({ site: "", username: "", password: "" });
+  
   const [passwordArray, setpasswordArray] = useState([]);
 
-  const passwordRef = useRef();
     const navigate = useNavigate();
 
 
@@ -37,49 +33,6 @@ const Manager = () => {
       theme: "dark",
     });
     navigator.clipboard.writeText(text);
-  };
-
-  const showPassword = () => {
-    if (ref.current.src.includes("icons/eyecross.png")) {
-      ref.current.src = "icons/eye.png";
-      passwordRef.current.type = "password";
-    } else {
-      ref.current.src = "icons/eyecross.png";
-      passwordRef.current.type = "text";
-    }
-  };
-
-  const savePassword = () => {
-
-    
-    if(form.site.length > 3 && form.username.length> 3 && form.password.length> 3){
-      
-    setpasswordArray([...passwordArray, { ...form, id: uuidv4() }]);
-
-    localStorage.setItem(
-      "passwords",
-      JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
-    );
-
-    
-    setform({ site: "", username: "", password: "" });
-    toast("Password Saved!", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-    
-    }
-    else{
-      toast.error("Error: Password not Saved!");
-    }
-
-
   };
 
   const deletePassword = (id) => {
@@ -112,11 +65,6 @@ const Manager = () => {
     setpasswordArray(passwordArray.filter((item) => item.id !== id));
   };
 
-  const handleChange = (e) => {
-    setform({ ...form, [e.target.name]: e.target.value });
-  };
-
- 
   return (
     <>
       <ToastContainer

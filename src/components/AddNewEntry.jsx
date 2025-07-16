@@ -1,14 +1,89 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+
+import { v4 as uuidv4 } from "uuid";
+
 
 const AddNewEntry = () => {
+const ref = useRef();
+      const [form, setform] = useState({ site: "", username: "", password: "" });
+      const [passwordArray, setpasswordArray] = useState([]);
+
+        const passwordRef = useRef();
+
+
+    
+  const showPassword = () => {
+    if (ref.current.src.includes("icons/eyecross.png")) {
+      ref.current.src = "icons/eye.png";
+      passwordRef.current.type = "password";
+    } else {
+      ref.current.src = "icons/eyecross.png";
+      passwordRef.current.type = "text";
+    }
+  };
+
+  const savePassword = () => {
+
+    
+    if(form.site.length > 3 && form.username.length> 3 && form.password.length> 3){
+      
+    setpasswordArray([...passwordArray, { ...form, id: uuidv4() }]);
+
+    localStorage.setItem(
+      "passwords",
+      JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
+    );
+
+    
+    setform({ site: "", username: "", password: "" });
+    toast("Password Saved!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+    
+    }
+    else{
+      toast.error("Error: Password not Saved!");
+    }
+
+
+  };
+
+  
+  const handleChange = (e) => {
+    setform({ ...form, [e.target.name]: e.target.value });
+  };
+
+ 
+
+
   return (
-    <div>
-      add pg< h1 > What is happening</h1>
-      add pg< h1 > What is happening</h1>
-      add pg< h1 > What is happening</h1>
-      add pg< h1 > What is happening</h1>
-      add pg< h1 > What is happening</h1>
-        {/* <div className="text-black flex flex-col p-4 gap-8 items-center">
+    <>
+    <ToastContainer
+            position="bottom-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+      <div className='mx-auto max-w-lg bg-purple-100 my-16 p-8 rounded-lg flex flex-col gap-4'>
+      <h1 className='font-bold text-2xl'>Add Your New Password</h1>
+      <div className='flex flex-col gap-5'>
+
+
+            <div className="text-black flex flex-col p-4 gap-8 items-center">
           <input
             placeholder="Enter Website URL"
             value={form.site}
@@ -66,8 +141,12 @@ const AddNewEntry = () => {
             ></lord-icon>
             Save
           </button>
-        </div> */}
-    </div>
+        </div>
+
+      </div>
+      </div>
+       
+    </>
   )
 }
 
