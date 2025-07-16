@@ -141,6 +141,20 @@ const Manager = () => {
         </p>
 
         <div>
+          <button
+            className="flex justify-center items-center gap-2 bg-green-500 rounded-full px-8 py-2 w-fit
+           hover:bg-green-400 border border-green-700"
+            
+          >
+            <lord-icon
+              src="https://cdn.lordicon.com/efxgwrkc.json"
+              trigger="hover"
+            ></lord-icon>
+            Add
+          </button>
+        </div>
+
+        <div>
           <h2 className="font-bold text-2xl py-4">Your Passwords</h2>
           {passwordArray.length === 0 && (
             <div className="text-gray-500 text-center font-bold">
