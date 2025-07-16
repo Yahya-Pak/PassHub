@@ -3,7 +3,11 @@ import React from 'react'
 const AddNewEntry = () => {
   return (
     <div>
-      
+      add pg< h1 > What is happening</h1>
+      add pg< h1 > What is happening</h1>
+      add pg< h1 > What is happening</h1>
+      add pg< h1 > What is happening</h1>
+      add pg< h1 > What is happening</h1>
         {/* <div className="text-black flex flex-col p-4 gap-8 items-center">
           <input
             placeholder="Enter Website URL"

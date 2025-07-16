@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
+import AddNewEntry from "./AddNewEntry";
+import { useNavigate } from "react-router-dom";
+
 
 const Manager = () => {
   const ref = useRef();
@@ -8,6 +11,8 @@ const Manager = () => {
   const [passwordArray, setpasswordArray] = useState([]);
 
   const passwordRef = useRef();
+    const navigate = useNavigate();
+
 
   useEffect(() => {
     let passwords = localStorage.getItem("passwords");
@@ -111,6 +116,7 @@ const Manager = () => {
     setform({ ...form, [e.target.name]: e.target.value });
   };
 
+ 
   return (
     <>
       <ToastContainer
@@ -126,11 +132,9 @@ const Manager = () => {
         theme="dark"
       />
 
-      <div className="relative z-0 bg-green-50 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div>
       
-
-      <div className=" md:mycontainer min-h-[78.8vh]">
+       <div>
+      
         <h1 className="text-4xl font-bold text-center">
           <span className="text-green-500">&lt;</span>
           Pass
@@ -144,13 +148,14 @@ const Manager = () => {
           <button
             className="flex justify-center items-center gap-2 bg-green-500 rounded-full px-8 py-2 w-fit
            hover:bg-green-400 border border-green-700"
-            
+            onClick={()=> navigate("/add-new-entry")}
           >
             <lord-icon
               src="https://cdn.lordicon.com/efxgwrkc.json"
               trigger="hover"
+              
             ></lord-icon>
-             Add New Password
+             Add 
           </button>
         </div>
 
@@ -270,7 +275,7 @@ const Manager = () => {
           )}
         </div>
       </div>
-      </div>
+      
     </>
   );
 };

@@ -1,28 +1,26 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import Navbar from './components/Navbar'
-import Manager from './components/Manager'
-import Footer from './components/Footer'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from './components/Layout'
+import Manager from './components/Manager';
+import AddNewEntry from './components/AddNewEntry';
+
 
 function App() {
   
   return (
     <>
+      <BrowserRouter>
 
-  {/* Navbar */}
-    <Navbar />
-
-    
-    {/* Main Content */}     
-    <main className="flex-grow">
-        <Manager />
-      </main>
-
-    {/* Footer */}
-
-    <Footer />
-
-
+        <Layout >
+          <Routes>
+            <Route path="/" element={<Manager />} />
+            <Route path="/add-new-entry" element={<AddNewEntry />} />
+          </Routes>
+        </Layout>
+      
+      </BrowserRouter>
+      
 
     </>
   )
