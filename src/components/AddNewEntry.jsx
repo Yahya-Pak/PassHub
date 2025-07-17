@@ -45,19 +45,22 @@ const ref = useRef();
       JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
     );
 
-    navigate("/");
-
     setform({ site: "", username: "", password: "" });
     toast("Password Saved!", {
       position: "bottom-right",
-      autoClose: 3000,
+      autoClose: 500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
       theme: "dark",
-    });
+    })
+    setTimeout(() => {
+  navigate("/");
+}, 1000);
+
+    
     
     }
     else{
@@ -79,7 +82,7 @@ const ref = useRef();
     <>
     <ToastContainer
             position="bottom-right"
-            autoClose={3000}
+            autoClose={500}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
@@ -94,7 +97,7 @@ const ref = useRef();
       <div className='flex flex-col gap-5'>
 
 
-            <div className="text-black flex flex-col p-4 gap-8 items-center">
+        <div className="text-black flex flex-col p-4 gap-8 items-center">
           <input
             placeholder="Enter Website URL"
             value={form.site}

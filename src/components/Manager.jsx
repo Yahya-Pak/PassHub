@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-
 const Manager = () => {
-  
   const [passwordArray, setpasswordArray] = useState([]);
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-    const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     let passwords = localStorage.getItem("passwords");
@@ -20,6 +19,24 @@ const Manager = () => {
     //     setpasswordArray = []
     // }
   }, []);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [search]);
+
+  const filteredPasswords = passwordArray.filter((item) => {
+    const keyword = debouncedSearch?.trim().toLowerCase() || "";
+
+    if (keyword === "") return true; // show all when search is empty
+
+    return (
+      item.site.toLowerCase().includes(keyword) ||
+      item.username.toLowerCase().includes(keyword)
+    );
+  });
 
   const copyText = (text) => {
     toast("Copied to Clipboard!", {
@@ -46,22 +63,20 @@ const Manager = () => {
       );
 
       toast.warning("Password Deleted!", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
   const editPassword = (id) => {
-
-    navigate(`edit-entry/${id}`)
+    navigate(`edit-entry/${id}`);
 
     // setform(passwordArray.filter((i) => i.id === id)[0]);
 
@@ -83,9 +98,7 @@ const Manager = () => {
         theme="dark"
       />
 
-      
-       <div>
-      
+      <div className="flex flex-col gap-1"> 
         <h1 className="text-4xl font-bold text-center">
           <span className="text-green-500">&lt;</span>
           Pass
@@ -95,23 +108,43 @@ const Manager = () => {
           Your own Password Manager
         </p>
 
-        <div>
-          <button
-            className="flex justify-center items-center gap-2 bg-green-500 rounded-full px-8 py-2 w-fit
+        <div className="hidden md:block">
+          <h2 className="font-bold text-2xl py-1">Your Passwords</h2>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between align-center items-center py-4 mt-1 mb-3">
+          <div className="w-full w-xs relative mb-3 md:mb-0">
+            <input
+              type="text"
+              placeholder="Search by site or username"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full max-w-md px-4 py-2 border border-green-500 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
+            />
+            <span className="absolute top-[4px] right-[3px] ">
+              <lord-icon
+                src="https://cdn.lordicon.com/hoetzosy.json"
+                trigger="hover"
+                style={{ width: "30px", height: "30px" }}
+              ></lord-icon>
+            </span>
+          </div>
+          <div>
+            <button
+              className="flex justify-center items-center gap-2 bg-green-500 rounded-full px-8 py-2 w-fit
            hover:bg-green-400 border border-green-700 cursor-pointer"
-            onClick={()=> navigate("/add-new-entry")}
-          >
-            <lord-icon
-              src="https://cdn.lordicon.com/efxgwrkc.json"
-              trigger="hover"
-              
-            ></lord-icon>
-             Add 
-          </button>
+              onClick={() => navigate("/add-new-entry")}
+            >
+              <lord-icon
+                src="https://cdn.lordicon.com/efxgwrkc.json"
+                trigger="hover"
+              ></lord-icon>
+              Add
+            </button>
+          </div>
         </div>
 
         <div>
-          <h2 className="font-bold text-2xl py-4">Your Passwords</h2>
           {passwordArray.length === 0 && (
             <div className="text-gray-500 text-center font-bold">
               No Passwords to Show.
@@ -123,16 +156,16 @@ const Manager = () => {
               <thead className="bg-green-800 text-white">
                 <tr>
                   <th className="py-2">Site</th>
-                  <th className="py-2">Username</th>
-                  <th className="py-2">Password</th>
+                  <th className="py-2 hidden md:table-cell">Username</th>
+                  <th className="py-2 hidden md:table-cell">Password</th>
                   <th className="py-2">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-green-100">
-                {passwordArray.map((item, index) => {
+                {filteredPasswords.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td className=" py-2 border border-white text-center">
+                      <td className=" py-2 border border-white text-center w-xs md:w-lg">
                         <div className="flex items-center justify-center">
                           <a href={item.site} target="_blank">
                             {item.site}
@@ -154,7 +187,7 @@ const Manager = () => {
                           </div>
                         </div>
                       </td>
-                      <td className=" py-2 border border-white text-center ">
+                      <td className=" py-2 hidden md:table-cell border border-white text-center ">
                         <div className="flex items-center justify-center">
                           <span>{item.username}</span>
 
@@ -175,7 +208,7 @@ const Manager = () => {
                           </div>
                         </div>
                       </td>
-                      <td className="py-2 border border-white text-center ">
+                      <td className="py-2 hidden md:table-cell border border-white text-center ">
                         <div className="flex items-center justify-center">
                           <span>{"*".repeat(item.password.length)}</span>
 
@@ -226,7 +259,6 @@ const Manager = () => {
           )}
         </div>
       </div>
-      
     </>
   );
 };

@@ -47,6 +47,21 @@ const EditEntry = () => {
   );
 
   localStorage.setItem("passwords", JSON.stringify(updated));
+
+ toast("Password Saved!", {
+       position: "bottom-right",
+       autoClose: 500,
+       hideProgressBar: false,
+       closeOnClick: true,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+       theme: "dark",
+     })
+     setTimeout(() => {
+   navigate("/");
+ }, 1000);
+ 
   };
     
   const handleChange = (e) => {
