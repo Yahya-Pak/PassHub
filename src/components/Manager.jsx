@@ -152,21 +152,22 @@ const Manager = () => {
           )}
 
           {passwordArray.length != 0 && (
-            <table className="table-auto w-full rounded-md overflow-hidden mb-1">
+            <div className="overflow-x-auto w-full rounded-md shadow">
+            <table className="min-w-[600px] table-auto w-full rounded-md overflow-hidden mb-1">
               <thead className="bg-green-800 text-white">
                 <tr>
-                  <th className="py-2">Site</th>
-                  <th className="py-2 hidden md:table-cell">Username</th>
-                  <th className="py-2 hidden md:table-cell">Password</th>
+                  <th className="py-2 px-4">Site</th>
+                  <th className="py-2 px-4">Username</th>
+                  <th className="py-2 px-4">Password</th>
                   <th className="py-2">Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-green-100">
+              <tbody className="bg-green-100 text-sm ">
                 {filteredPasswords.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td className=" py-2 border border-white text-center w-xs md:w-lg">
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center gap-2">
                           <a href={item.site} target="_blank">
                             {item.site}
                           </a>
@@ -187,7 +188,7 @@ const Manager = () => {
                           </div>
                         </div>
                       </td>
-                      <td className=" py-2 hidden md:table-cell border border-white text-center ">
+                      <td className=" py-2 border border-white text-center ">
                         <div className="flex items-center justify-center">
                           <span>{item.username}</span>
 
@@ -208,7 +209,7 @@ const Manager = () => {
                           </div>
                         </div>
                       </td>
-                      <td className="py-2 hidden md:table-cell border border-white text-center ">
+                      <td className="py-2 border border-white text-center ">
                         <div className="flex items-center justify-center">
                           <span>{"*".repeat(item.password.length)}</span>
 
@@ -229,7 +230,7 @@ const Manager = () => {
                           </div>
                         </div>
                       </td>
-                      <td className=" py-2 border border-white text-center ">
+                      <td className=" py-2 border border-white text-center  gap-2 ">
                         <span
                           className="cursor-pointer mx-1"
                           onClick={() => editPassword(item.id)}
@@ -256,6 +257,7 @@ const Manager = () => {
                 })}
               </tbody>
             </table>
+            </div>
           )}
         </div>
       </div>
